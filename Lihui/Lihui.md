@@ -54,6 +54,30 @@ a teacher teaching english
 
 ## 形容词
 
+### 在哪用
+
+#### 定语
+
+修饰名词，放前面：an interesting book
+
+修饰不定代词，放后面：something interesting
+
+#### 表语
+
+(主语的表现，放在系动词之后)
+
+be动词：am/is/are/was/were
+
+感官系动词：look/sound/smell/taste/feel
+
+变化系动词：become/grow/get(缓慢)/turn(颜色、职位)/go(食物变质人变坏)
+
+不变系动词：keep/remain/stay
+
+表象系动词：appear/seem
+
+### 怎么考
+
 ## 副词
 
 ## 冠词
