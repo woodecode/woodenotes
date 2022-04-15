@@ -1,4 +1,4 @@
-# 算法基础
+# **算法基础**
 
 [程序设计与算法(二) 算法基础_中国大学MOOC (icourse163.org)](https://www.icourse163.org/course/PKU-1001894005) 
 
@@ -724,17 +724,116 @@ maxSum[i][j] = D[i][j]+max(MaxSum(i+1,j),MaxSum(i+1,j+1));
 
 ...
 
-#### 最长上升子序列
+#### 递归到动规的一般转换方法
+
+
+
+#### 🚨最长上升子序列;
+
+...
+
+```c++
+int a[MAXN];//输入序列
+int maxLen[MAXN];// maxLen[i]表示以a[i]为终点的最长上升子序列
+int main(){
+    int N;//输入的数的个数
+    cin >> N;
+    // 初始化数组，maxLen[i]默认都为1 以[1]为数组的起点
+    for(int i=1;i<=N;++i){
+        cin >> a[i];
+        maxLen[i] = 1;
+    }
+    // 求以a[i]为终点的最长上升子序列，i=1(a[1])时不用算，maxLen[1]是1
+    for(int i = 2;i <= N;++i){
+        // 查看以第j个数为终点的最长上升子序列
+        for(int j = 1;j<i;++j){
+            // 
+            if(a[i]>a[j]){
+                maxLen[i] = max(maxLen[i],maxLen[j]+1);
+            }
+        }
+    }
+    // 这一步输出maxLen[]数组的最大值
+    cout << *max_element(maxLen+1,maxLen+N+1);
+    return 0;
+    
+}
+```
+
+...
 
 #### 最长公共子序列
+
+#### Help Jimmy
+
+#### 滑雪
+
+#### 神奇的口袋
+
+#### 0-1背包问题
+
+#### 分蛋糕
 
 ## 深度优先搜索
 
 #### 在图上寻找路径和遍历
 
+```c++
+// 伪代码
+bool Dfs(V){
+    if(V是终点){
+        path[depth] = V;
+        return true;
+    }
+    if(V是旧点) 
+        return false;
+    // 将V标记为旧点;
+    path[depth] = V;
+    ++depth;// 深度+1
+    对于V的每一个相邻节点U {
+        if(Dfs(U) == true){
+            return true;
+        }
+    }
+    // 如果程序运行到这里，说明从U搜索找不到终点
+    // 就要回退,因此深度-1
+    --depth;
+    return false;
+}
+int main(){
+    depth = 0;
+    if(Dfs()){
+        for(int i=0;i<=depth;++i){
+            cout << path[i] << endl;
+        }
+    }
+}
+```
+
+...
+
 #### 图的表示方法:邻接矩阵和邻接表
 
+...
+
+![image-20220415190739200](image\图_邻接表.png)
+
+...
+
 #### 城堡问题
+
+...
+
+```c
+```
+
+...
+
+```c++
+
+```
+
+...
 
 #### 踩方格
 
