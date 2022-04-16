@@ -842,8 +842,61 @@ int main(){
 
 ...
 
-```c++
+```markdown
+用一个二维数组中的元素表示该房间东南西北方向(上为呗)的墙：1西，2北，4东，8南
+input:
+4 // 4行
+7 // 7列
+11  6 11  6  3 10  6
+ 7  9  6 13  5 15  5
+ 1 10 12  7 13  7  5
+13 11 10  8 10 12 13
+output:
+5
+9
+```
 
+...
+
+```c++
+int R,C;
+int rooms[60][60];
+int color[60][60];
+int roomNum = 0;// 房间颜色
+int maxRoomArea = 0;
+int roomArea;
+int main(){
+    cin >> R >> C;
+    for(i=1:R){
+        for(j=1:C){
+            cin>>rooms[i][j];
+            color[i][j] = 0;
+        }
+    }
+    for(i=1:R){
+        for(j=1:C){
+            if(!color[i][j]){
+                ++roomNum;
+                roomArea = 0;
+                Dfs(i,j);// 探索这个房间
+                maxRoomArea = max(roomArea,maxRoomArea);// 最大的房间联通个数
+            }
+        }
+    }
+    cout << roomNum << endl; // 房间个数
+    cout << maxRoomArea << endl;// 最大区域的房间个数
+}
+void Dfs(int i,int j){
+    if(color[i][j]){
+        return ; //不为零说明该地方已经被探索过了
+    }
+    ++ roomArea;
+    color[i][j] = roomNum;//将该位置的房间染上色
+    if((rooms[i][j] & 1) == 0) Dfs(i,j-1);// 西
+    if((rooms[i][j] & 2) == 0) Dfs(i-1,j);// 北
+    if((rooms[i][j] & 4) == 0) Dfs(i,j+1);// 东
+    if((rooms[i][j] & 8) == 0) Dfs(i+1,j);// 南
+}
 ```
 
 ...
