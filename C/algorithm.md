@@ -903,6 +903,40 @@ void Dfs(int i,int j){
 
 #### 踩方格
 
+...
+
+![image-20220416202918900](image\DFS_踩方格.png)
+
+...
+
+```c++
+int main(){
+    int n;
+    cin >> n;
+    memset(visited,0,sizeof(visited));// visited数组置零
+    cout << ways(0,25,n) << endl;
+}
+// 从(i,j)出发走n步的走法数
+int ways(int i,int j,int n){
+    if(n == 0){
+    	return 1;  // 走零步  
+    }
+    visited[i][j] = 1;// 标记为走过
+    int num = 0;
+    if(!visited[i][j-1]) num += ways(i,j-1,n-1);// 西走
+    if(!visited[i][j+1]) num += ways(i,j+1,n-1);// 东走
+    if(!visited[i+1][j]) num += ways(i+1,j,n-1);// 南走
+    visited[i][j] = 0;
+    return num;
+}
+```
+
+
+
+
+
+...
+
 #### 寻路问题
 
 #### 生日蛋糕
