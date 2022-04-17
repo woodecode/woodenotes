@@ -925,34 +925,12 @@ result: 28 AND 9
 #include <iostream>
 #include <string.h>
 using namespace std;
-int main(){
-    int n;
-    cin >> n;
-    memset(visited,0,sizeof(visited));// visited数组置零
-    cout << ways(0,25,n) << endl;
-}
+int visited[60][60];
+
 // 从(i,j)出发走n步的走法数
 int ways(int i,int j,int n){
     if(n == 0){
-    	return 1;  // 走零步  
-    }
-    visited[i][j] = 1;// 标记为走过
-    int num = 0;
-    if(!visited[i][j-1]) num += ways(i,j-1,n-1);// 西走
-    if(!visited[i][j+1]) num += ways(i,j+1,n-1);// 东走
-    if(!visited[i+1][j]) num += ways(i+1,j,n-1);// 南走
-    visited[i][j] = 0;
-    return num;
-}
-...................................................................
-#include <iostream>
-#include <string.h>
-using namespace std;
-int visited[60][60];
-
-int ways(int i,int j,int n){
-    if(n == 0){
-        return 1;
+        return 1;// 走零步
     }
     long num = 0;
     visited[i][j] = 1;// 标记为走过
@@ -964,6 +942,7 @@ int ways(int i,int j,int n){
     visited[i][j] = 0;// 标记为未走过
     return num;
 }
+
 int main(int argc, char const *argv[]){ 
     int n; cin >> n;// 走的步数
     memset(visited,0,sizeof(visited));// 数组清零
@@ -973,9 +952,7 @@ int main(int argc, char const *argv[]){
 }
 ```
 
-
-
-
+...
 
 ...
 
