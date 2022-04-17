@@ -964,7 +964,7 @@ int ways(int i,int j,int n){
     visited[i][j] = 0;// 标记为未走过
     return num;
 }
-int main(int argc, char const *argv[]){
+int main(int argc, char const *argv[]){ 
     int n; cin >> n;// 走的步数
     memset(visited,0,sizeof(visited));// 数组清零
     cout << ways(0,25,n) << endl;
