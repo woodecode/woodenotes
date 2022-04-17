@@ -819,11 +819,11 @@ int main(){
 
 ...
 
-#### 城堡问题
+#### 🚨城堡问题(测试代码房间总数有问题)
 
 ...
 
-```c
+```txt
 	  1   2   3   4   5   6   7
 	#############################
 1	#   |   #   |   #   |   |   #
@@ -837,66 +837,79 @@ int main(){
 # = Wall
 - = No Wall
 | = No Wall
+二维数组中的每个元素表示该房间东南西北方向(上为呗)的墙：1西，2北，4东，8南
 ```
 
-...
-
-```markdown
-用一个二维数组中的元素表示该房间东南西北方向(上为呗)的墙：1西，2北，4东，8南
-input:
-4 // 4行
-7 // 7列
-11  6 11  6  3 10  6
- 7  9  6 13  5 15  5
- 1 10 12  7 13  7  5
-13 11 10  8 10 12 13
-output:
-5
-9
-```
-
-...
+...测试代码
 
 ```c++
-int R,C;
+#include <iostream>
+using namespace std;
 int rooms[60][60];
 int color[60][60];
-int roomNum = 0;// 房间颜色
+int roomNum = 0;
+int roomArea = 0;
 int maxRoomArea = 0;
-int roomArea;
-int main(){
-    cin >> R >> C;
-    for(i=1:R){
-        for(j=1:C){
-            cin>>rooms[i][j];
-            color[i][j] = 0;
-        }
-    }
-    for(i=1:R){
-        for(j=1:C){
-            if(!color[i][j]){
-                ++roomNum;
-                roomArea = 0;
-                Dfs(i,j);// 探索这个房间
-                maxRoomArea = max(roomArea,maxRoomArea);// 最大的房间联通个数
-            }
-        }
-    }
-    cout << roomNum << endl; // 房间个数
-    cout << maxRoomArea << endl;// 最大区域的房间个数
-}
+int R , C;
+// 探索当前房间
 void Dfs(int i,int j){
+    // 被探索过了
     if(color[i][j]){
-        return ; //不为零说明该地方已经被探索过了
+        return;
     }
-    ++ roomArea;
-    color[i][j] = roomNum;//将该位置的房间染上色
+    ++roomArea;
+    color[i][j] = roomNum;
     if((rooms[i][j] & 1) == 0) Dfs(i,j-1);// 西
     if((rooms[i][j] & 2) == 0) Dfs(i-1,j);// 北
     if((rooms[i][j] & 4) == 0) Dfs(i,j+1);// 东
     if((rooms[i][j] & 8) == 0) Dfs(i+1,j);// 南
+};
+int main(int argc, char const *argv[]){
+    // 初始化rooms和color数组
+    cout << "input row and col: " << endl;
+    cin >> R >> C;
+    do{
+        cout << "input data:->" << endl;
+        for (int i = 1; i <= R; i++){
+            for (int j = 1; j <= C; j++){
+                cin >> rooms[i][j];
+                color[i][j] = 0;
+            }
+        }
+    }while(0);
+    // 探索每一个房间
+    do{
+        for (int i = 1; i <= R; i++){
+            for (int j = 1; j <= C; j++){
+                ++roomNum;
+                roomArea = 0;
+                Dfs(i,j);// 探索房间
+                maxRoomArea = max(roomArea,maxRoomArea);
+            }
+        }
+    }while(0);
+    cout << "result: " << roomNum << " AND " << maxRoomArea << endl;
+    system("pause");
+    return 0;
 }
 ```
+
+...测试结果
+
+```markdown
+input row and col:
+4 7
+input data:->
+11 6 11 6 3 10 6
+7 9 6 13 5 15 5
+1 10 12 7 13 7 5
+13 11 10 8 10 12 13
+
+result: 28 AND 9
+请按任意键继续. . .
+```
+
+...
 
 ...
 
@@ -909,6 +922,9 @@ void Dfs(int i,int j){
 ...
 
 ```c++
+#include <iostream>
+#include <string.h>
+using namespace std;
 int main(){
     int n;
     cin >> n;
@@ -927,6 +943,33 @@ int ways(int i,int j,int n){
     if(!visited[i+1][j]) num += ways(i+1,j,n-1);// 南走
     visited[i][j] = 0;
     return num;
+}
+...................................................................
+#include <iostream>
+#include <string.h>
+using namespace std;
+int visited[60][60];
+
+int ways(int i,int j,int n){
+    if(n == 0){
+        return 1;
+    }
+    long num = 0;
+    visited[i][j] = 1;// 标记为走过
+    do{
+        if(!visited[i][j-1]) num += ways(i,j-1,n-1);// 西
+        if(!visited[i][j+1]) num += ways(i,j+1,n-1);// 东
+        if(!visited[i+1][j]) num += ways(i+1,j,n-1);// 南
+    }while(0);
+    visited[i][j] = 0;// 标记为未走过
+    return num;
+}
+int main(int argc, char const *argv[]){
+    int n; cin >> n;// 走的步数
+    memset(visited,0,sizeof(visited));// 数组清零
+    cout << ways(0,25,n) << endl;
+    system("pause");
+    return 0;
 }
 ```
 
