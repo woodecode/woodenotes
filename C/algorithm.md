@@ -958,6 +958,101 @@ int main(int argc, char const *argv[]){
 
 #### 寻路问题
 
+...
+
+![](image/寻路问题.png)
+
+...测试代码
+
+```c++
+#include <iostream>
+#include <string.h>
+#include <vector> // 数组
+using namespace std;
+
+int K,N,R;// 钱数，城市数，道路数
+int minLen;
+int totalLen;
+int totalCost;
+int visted[110]; // 标记是否已经走过
+struct Road{
+    int d;// 路的终点
+    int length;// 路的长度
+    int t;// 过路费
+};
+// 构造一个110个元素的数组G[110],每个元素的类型是Road的向量数组
+vector< vector<Road> >G(110);
+void Dfs(int s){
+    // s = N 说明开始点等于终点,即走完了
+    if(s == N){
+        minLen = min(totalLen,minLen);
+        return;
+    }
+    for (int i = 0; i < G[s].size(); i++){
+        Road r = G[s][i];
+        if(totalCost + r.t > K){
+            continue;//钱不够了，就不走这条路了
+        }
+        if(!visted[r.d]){
+            totalLen += r.length;
+            totalCost += r.t;
+            visted[r.d] = 1;
+            Dfs(r.d);
+            visted[r.d] = 0;
+            totalLen -= r.length;
+            totalCost -= r.t;
+        }
+    }
+}
+
+int main(int argc, char const *argv[]){
+    cin >> K >> N >> R;
+    for (int i = 0; i < R; i++){
+        int s;
+        Road r;
+        cin >> s >> r.d >> r.length >> r.t ;
+        // 起点等于终点的r(Road)道路不予理会
+        if(s != r.d){
+            G[s].push_back(r);//将该道路加入到邻接表
+        }
+    }
+    memset(visted,0,sizeof(visted));// 将数组visted置零
+    totalLen = 0;
+    totalCost = 0;
+    minLen = 1<<30;//minLen初始化一个非常大的数
+
+    visted[1] = 1;
+    Dfs(1); 
+    // 是否找到了路
+    if(minLen < (1<<30)){
+        cout << minLen << endl;
+    }else{
+        cout << "-1" << endl;
+    }
+    return 0;
+}
+```
+
+...测试结果
+
+```txt
+5 6 7
+1 2 2 3
+2 4 3 3
+3 4 2 4
+1 3 4 1
+4 6 2 1
+3 5 2 0
+5 4 3 2
+>> 11
+```
+
+...
+
+
+
+...
+
 #### 生日蛋糕
 
 ## 广度优先搜索
