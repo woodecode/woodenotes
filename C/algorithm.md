@@ -960,7 +960,7 @@ int main(int argc, char const *argv[]){
 
 ...
 
-![](image/寻路问题.png)
+![image-20220420181820965](D:\A\code\WoodeNotes\C\image\寻路问题.png)
 
 ...测试代码
 
@@ -1047,13 +1047,94 @@ int main(int argc, char const *argv[]){
 >> 11
 ```
 
-...
-
-
+...这个方法有一些不必要的搜索，优化的空间很大
 
 ...
 
 #### 生日蛋糕
+
+...
+
+> ### 题目
+>
+> ​	要制作一个**体积为Nπ**的**M层**生日蛋糕，每层都是一个圆柱体。 
+>
+> 设从下往上数第i(1 <= i <= M)层蛋糕是半径为Ri, 高度为Hi的圆柱。
+>
+> 当i < M时 ，要求Ri > Ri+1且Hi > Hi+1。 由于要在蛋糕上抹奶油，为尽可能节约经费，我们希望蛋糕外表面（最下一层的 下底面除外）的面积Q最小。 
+>
+> ​	令Q = Sπ 
+>
+> 请编程对给出的N和M，找出蛋糕的制作方案（适当的Ri和Hi的值），使S最小 。 
+>
+> (除Q外，以上所有数据皆为正整数)
+
+...
+
+> ### 剪枝
+>
+> ​	剪枝1：搭建过程中发现已建好的面积已经超过目前求得的最优表面 积，或者预见到搭完后面积一定会超过目前最优表面积,则停止搭建 （最优性剪枝）
+>
+> ​	剪枝2：搭建过程中预见到再往上搭，高度已经无法安排，或者半径 已经无法安排，则停止搭建(可行性剪枝）
+>
+> ​	剪枝3：搭建过程中发现还没搭的那些层的体积，一定会超过还缺的 体积，则停止搭建(可行性剪枝）
+>
+> ​	剪枝4：搭建过程中发现还没搭的那些层的体积，最大也到不了还缺 的体积，则停止搭建(可行性剪枝
+
+...
+
+```c++
+#include <iostream>
+#include <string.h>
+using namespace std;
+int M,N;
+int area = 0;
+int minArea = 1<<30;
+
+// 用n层去凑体积v,最底层半径不能超过r,高度不能超过h
+int Dfs(int v,int n,int r,int h){
+    // 边界条件: _v,_n都为0
+    if (n == 0){
+        if(v > 0){
+            return;
+        }else{
+            minArea = min(minArea,area);
+        }
+    }
+    // 边界条件: 
+    if(v <= 0){
+        return;
+    }
+    // 剪枝
+    // 
+    do{
+        for(int rr = r;rr >= 0;--rr){
+            if(n == M){
+                
+            }
+            for(int hh=h;hh >= 0;--hh){
+                
+            }
+        }
+    }while(0);
+}
+int main(int argc, char const *argv[]){
+    int M,N; cin >> N >> M;
+    Dfs(N,M,9,9);
+    if (minArea == 1<<30){
+        cout << 0 << endl;
+    }else{
+        cout << minArea << endl;
+    }
+
+    system("pause");
+    return 0;
+}
+```
+
+
+
+...
 
 ## 广度优先搜索
 
